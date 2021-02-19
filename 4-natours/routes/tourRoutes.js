@@ -8,7 +8,7 @@ router.param('id', tourController.checkId); // middleware для конкрет�
 router
   .route('/')
   .get(tourController.getAllTours)
-  .post(tourController.createTour);
+  .post(tourController.checkBody, tourController.createTour); // middleware исполняются по очереди
 router
   .route('/:id')
   .get(tourController.getTour)
