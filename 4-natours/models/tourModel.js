@@ -14,7 +14,7 @@ const tourSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'A tour must have a price!'],
   },
-}); // создаем schema для базы данных
+}); // создаем schema для базы данных. Все что не в ней при пост будет игнориться
 
 const Tour = mongoose.model('Tour', tourSchema); // создаем tour для базы данных
 
