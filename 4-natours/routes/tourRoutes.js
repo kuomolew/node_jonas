@@ -3,7 +3,7 @@ const tourController = require('./../controllers/tourController');
 
 const router = express.Router(); // создаем новый router
 
-router.param('id', tourController.checkId); // middleware для конкретного параметра, в данном случае id. val - значение этого параметра
+// router.param('id', tourController.checkId); // middleware для конкретного параметра, в данном случае id. val - значение этого параметра
 
 router
   .route('/')
