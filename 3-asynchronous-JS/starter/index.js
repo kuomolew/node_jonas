@@ -33,23 +33,28 @@ const getDogPic = async () => {
     console.log('Random dog image is saved!');
   } catch (err) {
     console.log(err);
+    throw err;
   }
+  return '2: ready';
 };
 
-getDogPic();
+(async () => {
+  try {
+    console.log('1: Will get dog pics!');
+    const x = await getDogPic();
+    console.log(x);
+    console.log('3: Dog pics picked!');
+  } catch (err) {
+    console.log('ERROR');
+  }
+})();
 
-// readFilePromise(`${__dirname}/dog.txt`)
-//   .then((data) => {
-//     console.log(`Breed:`, data);
-//     return superagent.get(`https://dog.ceo/api/breed/${data}/images/random`);
-//   })
-//   .then((res) => {
-//     console.log(res.body.message);
-//     return writeFilePromise('dog-img.txt', res.body.message);
-//   })
-//   .then(() => {
-//     console.log('Random dog image is saved!');
+// console.log('1: Will get dog pics!');
+// getDogPic()
+//   .then((x) => {
+//     console.log(x);
+//     console.log('3: Dog pics picked!');
 //   })
 //   .catch((err) => {
-//     console.log(err);
+//     console.log('ERROR');
 //   });
