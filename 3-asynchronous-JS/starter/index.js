@@ -2,16 +2,17 @@ const fs = require('fs');
 const superagent = require('superagent');
 
 fs.readFile(`${__dirname}/dog.txt`, 'utf8', (err, data) => {
-  console.log(data);
+  console.log(`Breed:`, data);
 
   superagent
     .get(`https://dog.ceo/api/breed/${data}/images/random`)
-    .end((err, res) => {
-      if (err) return console.log(err);
+    .then((res) => {
       console.log(res.body.message);
-
       fs.writeFile('dog-img.txt', res.body.message, (err) => {
         console.log('Random dog image is saved');
       });
+    })
+    .catch((err) => {
+      console.log(err);
     });
 });
