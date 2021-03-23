@@ -1,35 +1,26 @@
 const Tour = require('./../models/tourModel');
 
-// const tours = JSON.parse(
-//   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
-// );
-
-// exports.checkId = (req, res, next, val) => {
-//   console.log(`Tour id is: ${val}`);
-//   if (req.params.id * 1 > tours.length) {
-//     return res.status(404).json({
-//       status: 'fail',
-//       message: 'Invalid ID',
-//     });
-//   }
-//   next();
-// };
-
-// exports.checkBody = (req, res, next) => {
-//   // console.log('check body');
-//   if (!req.body.name || !req.body.price) {
-//     return res.status(400).json({
-//       status: 'fail',
-//       message: 'Missing name or price',
-//     });
-//   }
-
-//   next();
-// };
-
 exports.getAllTours = async (req, res) => {
   try {
-    const tours = await Tour.find();
+    //BUILD QUERY
+    const queryObj = { ...req.query }; // делаем копию обьекта
+    const excludedFields = ['page', 'sort', 'limit', 'field'];
+    excludedFields.forEach((el) => delete queryObj[el]);
+
+    console.log(req.query, queryObj);
+
+    const query = Tour.find(queryObj);
+
+    // const tours = await Tour.find()
+    //   .where('duration')
+    //   .equals('5')
+    //   .where('difficulty')
+    //   .equals('easy');  //также можно работать с query
+
+    //EXECUTE QUERY
+    const tours = await query;
+
+    //SEND RESPONCE
     res.status(200).json({
       status: 'success',
       results: tours.length,
